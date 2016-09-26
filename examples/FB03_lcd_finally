@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#import pcd8544.lcd as lcd
+import lcdz as lcd
+import time, os, sys
+
+if not os.geteuid() == 0:
+    sys.exit('Script must be run as root')
+
+ON, OFF = [1, 0]
+
+j=0
+lcd.init()
+lcd.cls()
+lcd.backlight(ON)
+
+try:
+	while j <35:
+		j=j+1
+		lcd.gotoxy(1, 1)
+		TEXT = str(j)
+		lcd.text("FB Funziona!"+TEXT)
+		#while 1: (sempre)
+		#lcd.centre_text(5,time.strftime("%d %b %Y", time.localtime()))
+		#lcd.centre_text(6,time.strftime("%H:%M:%S", time.localtime()))
+		time.sleep(0.35)
+		lcd.cls()
+except KeyboardInterrupt:
+  pass
+finally:
+  lcd.cls()
+  lcd.backlight(OFF)
